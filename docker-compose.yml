@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: rehome_postgres
+    environment:
+      POSTGRES_USER: rehome_user
+      POSTGRES_PASSWORD: rehome_password
+      POSTGRES_DB: rehome_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rehome_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - rehome_network
+
+  backend:
+    build: ./backend
+    container_name: rehome_backend
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://rehome_user:rehome_password@postgres:5432/rehome_db
+      SECRET_KEY: your-secret-key-change-in-production-please
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - rehome_network
+
+volumes:
+  postgres_data:
+
+networks:
+  rehome_network:
+    driver: bridge
+

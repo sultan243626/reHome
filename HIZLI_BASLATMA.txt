@@ -1,0 +1,101 @@
+═══════════════════════════════════════════════════════════════
+  🚀 BACKEND BAŞLATMA - HIZLI REHBER
+═══════════════════════════════════════════════════════════════
+
+SORUN: "localhost refused to connect" hatası alıyorsunuz
+ÇÖZÜM: Backend'i başlatmanız gerekiyor
+
+═══════════════════════════════════════════════════════════════
+  ADIM 1: Docker Desktop'ı Başlatın
+═══════════════════════════════════════════════════════════════
+
+1. Windows Başlat menüsünden "Docker Desktop" uygulamasını açın
+2. Sistem tepsisinde (sağ altta) Docker ikonunun YEŞİL olduğunu kontrol edin
+3. Eğer Docker açılmıyorsa, Docker Desktop'ı yükleyin:
+   https://www.docker.com/products/docker-desktop/
+
+═══════════════════════════════════════════════════════════════
+  ADIM 2: PowerShell Açın
+═══════════════════════════════════════════════════════════════
+
+1. Windows tuşuna basın
+2. "PowerShell" yazın
+3. "Windows PowerShell" uygulamasını açın
+
+═══════════════════════════════════════════════════════════════
+  ADIM 3: Proje Klasörüne Gidin
+═══════════════════════════════════════════════════════════════
+
+PowerShell'de şu komutu yazın ve Enter'a basın:
+
+    cd "C:\Users\topsu\OneDrive\Masaüstü\kodluyoruzz"
+
+VEYA
+
+Dosya Gezgini'nde proje klasörüne gidin, adres çubuğuna tıklayın,
+"powershell" yazın ve Enter'a basın.
+
+═══════════════════════════════════════════════════════════════
+  ADIM 4: Backend'i Başlatın
+═══════════════════════════════════════════════════════════════
+
+PowerShell'de şu komutu yazın ve Enter'a basın:
+
+    docker-compose up -d
+
+NOT: İlk çalıştırmada 2-5 dakika sürebilir (image'lar indirilir)
+
+═══════════════════════════════════════════════════════════════
+  ADIM 5: Çalıştığını Kontrol Edin
+═══════════════════════════════════════════════════════════════
+
+1. Tarayıcınızda şu adresi açın:
+   http://localhost:8000/api/health
+
+2. Şunu görmelisiniz:
+   {"status": "healthy", "message": "API is running"}
+
+3. Eğer görüyorsanız, backend çalışıyor! ✅
+
+═══════════════════════════════════════════════════════════════
+  ADIM 6: Veritabanını Başlatın (İlk Kurulum)
+═══════════════════════════════════════════════════════════════
+
+Eğer ilk kez çalıştırıyorsanız, PowerShell'de şu komutu çalıştırın:
+
+    docker-compose exec backend python init_db.py
+
+═══════════════════════════════════════════════════════════════
+  YARDIMCI KOMUTLAR
+═══════════════════════════════════════════════════════════════
+
+Container durumunu kontrol et:
+    docker-compose ps
+
+Backend loglarını görüntüle:
+    docker-compose logs backend
+
+Backend'i durdur:
+    docker-compose down
+
+Backend'i yeniden başlat:
+    docker-compose restart backend
+
+═══════════════════════════════════════════════════════════════
+  SORUN GİDERME
+═══════════════════════════════════════════════════════════════
+
+❌ "docker-compose: command not found"
+   → "docker compose up -d" deneyin (boşluk var, tire yok)
+
+❌ "Cannot connect to Docker daemon"
+   → Docker Desktop'ın çalıştığından emin olun
+
+❌ "Port 8000 is already allocated"
+   → Port'u kullanan programı kapatın veya docker-compose.yml'de portu değiştirin
+
+❌ Container başlamıyor
+   → docker-compose logs backend komutuyla hataları kontrol edin
+
+═══════════════════════════════════════════════════════════════
+
