@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReHome Gençlik Merkezi</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hidden { display: none; }
+    </style>
+<script>
+    function showMainSection(section) {
+            const sections = document.querySelectorAll('.main-section');
+            sections.forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(section).classList.remove('hidden');
+            }
+</script>
+
+</head>
+<body>
+     <nav class="navbar">
+        <div class="navbar-container">
+         <img src="foto.png" alt="logo" class="logo" height="50px"onerror="this.src=''; this.alt='Logo yüklenemedi'; this.style.display='none';">
+
+    
+      
+               <ul class="nav-menu" id="nav-menu">
+                <li><a href="1iindex.html" class="nav-link" onclick="showMainSection('Ana Sayfa')">Ana Sayfa</a></li>
+                <li><a href="2Genclik.html" class="nav-link" onclick="showMainSection('Gençlik Merkezleri')">Gençlik Merkezleri</a></li>
+                <li><a href="3Bagis.html" class="nav-link active" onclick="showMainSection('Bağış Yap')">Bağış Yap</a></li>
+                <li><a href="4esyaara.html" class="nav-link" onclick="showMainSection('Eşya ara ')">Eşya ara </a></li>
+                <li><a href="5profilim.html" class="nav-link" onclick="showMainSection('Profilim')">Profilim</a></li>
+             </ul>
+
+  
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+        <div id="Ana Sayfa" class="main-section hidden">Ana Sayfa Content</div>
+        <div id="Gençlik Merkezleri" class="main-section hidden">Gençlik Merkezleri Content</div>
+        <div id="Bağış Yap" class="main-section hidden">Bağış Yap Content</div>
+        <div id="Eşya ara" class="main-section hidden">Eşya ara Content</div>
+        <div id="Profilim" class="main-section hidden">Profilim Content</div>
+  
+          <main class="main-content">
+        <div class="headeresya">
+            <h1>Bağış Yap</h1>
+            <p>Kullanmadığınız eşyalarınızı bağışlayarak çevreye katkıda bulunun</p>
+        </div>
+
+        <div class="donation-section">
+            <div class="donation-button-container">
+                <button class="donation-main-btn" onclick="showDonationForm()">
+                     Bağış Yap
+                </button>
+                <p class="donation-description">
+                    Kullanmadığınız eşyalarınızı gençlik merkezlerine bağışlayarak hem çevreye hem de gençlere destek olun!
+                </p>
+            </div>
+
+            <div id="donation-form" class="donation-form" style="display: none;">
+                <h2 style="color: #8B4B8C; margin-bottom: 2rem; text-align: center;">Bağış Bilgileri</h2>
+                
+                <div class="form-container">
+                    <div class="form-left">
+                        <div class="form-group">
+                            <label class="form-label">Gençlik Merkezi Seç</label>
+                            <select id="center-select" class="form-input">
+                                <option value="">Merkez Seçin</option>
+                                <option value="Kulu">Kulu Gençlik Merkezi</option>
+                                <option value="bosna">Bosna Gençlik Merkezi</option>
+                                 <option value="selçuklu">selçuklu Gençlik Merkezi</option>
+                                  <option value="meram">Meram Gençlik Merkezi</option>
+                                   <option value="aksehir">Aksehir Gençlik Merkezi</option>
+                                    <option value="beysehir">Beyşehir Gençlik Merkezi</option>
+                                     <option value="seydisehir">Seydişehir Gençlik Merkezi</option>
+                                      <option value="hadim">Hadim Gençlik Merkezi</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Eşya Kategorisi</label>
+                            <select id="category-select" class="form-input" onchange="updateItemTypes()">
+                                <option value="">Kategori Seçin</option>
+                                <option value="mobilya">Mobilya</option>
+                                <option value="beyaz-esyalar">Beyaz Eşyalar</option>
+                                <option value="egitim-araclari">Eğitim Araçları</option>
+                                <option value="mutfak-gerecleri">Mutfak Gereçleri</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Eşya Türü</label>
+                            <select id="item-type-select" class="form-input" onchange="updateCO2Savings()">
+                                <option value="">Eşya Türü Seçin</option>
+                            </select>
+                        </div>
+<!-- Form içine bu inputları ekle -->
+
+
+<div class="form-group">
+    <label class="form-label">Durumu</label>
+    <select id="condition" class="form-input" required>
+        <option value="">Durum Seçin</option>
+        <option value="yeni">Yeni</option>
+        <option value="iyi">İyi</option>
+        <option value="orta">Orta</option>
+        <option value="kötü">Kötü</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label class="form-label">Konum</label>
+    <input type="text" id="location" class="form-input" placeholder="Bulunduğunuz şehir" required>
+</div>
+                        <div class="form-group">
+                            <label class="form-label">Açıklama</label>
+                            <textarea id="description" class="form-input" rows="4" placeholder="Eşyanızın durumu hakkında bilgi verin..."></textarea>
+                        </div>
+
+                        <div id="co2-info" class="co2-info" style="display: none;">
+                            <div class="co2-icon">🌱</div>
+                            <div class="co2-text">
+                                <span id="co2-amount">0</span> kg CO₂ tasarruf edeceksiniz!
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-right">
+                        <div class="image-upload-container">
+                            <div class="image-upload-area" onclick="document.getElementById('image-input').click()">
+                                <div class="upload-icon">📷</div>
+                                <div class="upload-text">
+                                    <strong>Resim Yükle</strong>
+                                    <p>Eşyanızın fotoğrafını yükleyin</p>
+                                </div>
+                            </div>
+                            <input type="file" id="image-input" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+                            <div id="image-preview" class="image-preview" style="display: none;">
+                                <img id="preview-img" src="" alt="Önizleme">
+                                <button class="remove-image" onclick="removeImage()">✕</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                   <button type="button" class="submit-btn" onclick="submitDonation()">Bağışı Tamamla</button>
+                    <button class="cancel-btn" onclick="hideDonationForm()">İptal</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Kategori ve eşya türleri eşleştirmesi
+        const itemTypes = {
+            'mobilya': ['Kanepe', 'Masa', 'Sandalye', 'Dolap', 'Raf'],
+            'beyaz-esyalar': ['Buzdolabı', 'Çamaşır Makinesi', 'Bulaşık Makinesi', 'Fırın', 'Mikrodalga'],
+            'egitim-araclari': ['Kitap', 'Defter', 'Kalem', 'Hesap Makinesi', 'Sıra'],
+            'mutfak-gerecleri': ['Tencere', 'Tava', 'Tabak', 'Bardak', 'Çatal Bıçak']
+        };
+
+        // CO2 tasarruf miktarları (kg)
+        const co2Savings = {
+            'Kanepe': 45,
+            'Masa': 35,
+            'Sandalye': 25,
+            'Dolap': 60,
+            'Raf': 20,
+            'Buzdolabı': 80,
+            'Çamaşır Makinesi': 70,
+            'Bulaşık Makinesi': 65,
+            'Fırın': 55,
+            'Mikrodalga': 30,
+            'Kitap': 5,
+            'Defter': 2,
+            'Kalem': 1,
+            'Hesap Makinesi': 15,
+            'Sıra': 40,
+            'Tencere': 12,
+            'Tava': 8,
+            'Tabak': 3,
+            'Bardak': 2,
+            'Çatal Bıçak': 5
+        };
+
+        // Bağış formunu göster/gizle
+        function showDonationForm() {
+            const form = document.getElementById('donation-form');
+            form.style.display = 'block';
+            form.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function hideDonationForm() {
+            const form = document.getElementById('donation-form');
+            form.style.display = 'none';
+            // Formu temizle
+            document.getElementById('center-select').value = '';
+            document.getElementById('category-select').value = '';
+            document.getElementById('item-type-select').innerHTML = '<option value="">Eşya Türü Seçin</option>';
+            document.getElementById('description').value = '';
+            document.getElementById('co2-info').style.display = 'none';
+            removeImage();
+        }
+
+        // Eşya türlerini güncelleme
+        function updateItemTypes() {
+            const categorySelect = document.getElementById('category-select');
+            const itemTypeSelect = document.getElementById('item-type-select');
+            const selectedCategory = categorySelect.value;
+
+            // Eşya türü seçimini temizle
+            itemTypeSelect.innerHTML = '<option value="">Eşya Türü Seçin</option>';
+
+            // CO2 bilgisini gizle
+            document.getElementById('co2-info').style.display = 'none';
+
+            if (selectedCategory && itemTypes[selectedCategory]) {
+                itemTypes[selectedCategory].forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type;
+                    option.textContent = type;
+                    itemTypeSelect.appendChild(option);
+                });
+            }
+        }
+
+        // CO2 tasarruf bilgisini güncelle
+        function updateCO2Savings() {
+            const itemTypeSelect = document.getElementById('item-type-select');
+            const selectedItemType = itemTypeSelect.value;
+            const co2Info = document.getElementById('co2-info');
+            const co2Amount = document.getElementById('co2-amount');
+
+            if (selectedItemType && co2Savings[selectedItemType]) {
+                co2Amount.textContent = co2Savings[selectedItemType];
+                co2Info.style.display = 'flex';
+            } else {
+                co2Info.style.display = 'none';
+            }
+        }
+
+        // Resim yükleme işlemi
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const uploadArea = document.querySelector('.image-upload-area');
+                    const preview = document.getElementById('image-preview');
+                    const previewImg = document.getElementById('preview-img');
+                    
+                    previewImg.src = e.target.result;
+                    uploadArea.style.display = 'none';
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Resmi kaldır
+        function removeImage() {
+            const uploadArea = document.querySelector('.image-upload-area');
+            const preview = document.getElementById('image-preview');
+            const imageInput = document.getElementById('image-input');
+            
+            uploadArea.style.display = 'flex';
+            preview.style.display = 'none';
+            imageInput.value = '';
+        }
+     const API_URL = 'http://localhost:5000/api';
+
+// Eşya yükleme fonksiyonu
+async function uploadItem(itemData) {
+    try {
+        console.log('Eşya yükleniyor:', itemData);
+        
+        const response = await fetch(`${API_URL}/items`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(itemData)
+        });
+        
+        if (response.ok) {
+            const newItem = await response.json();
+            alert(`✅ Eşyanız başarıyla yüklendi! ${newItem.points_value} puan kazandınız.`);
+            console.log('Yeni eşya:', newItem);
+            hideDonationForm(); // Formu kapat
+            return newItem;
+        } else {
+            throw new Error('Sunucu hatası');
+        }
+    } catch (error) {
+        console.error('Yükleme hatası:', error);
+        alert('❌ Eşya yüklenirken hata oluştu. Backend çalışıyor mu? http://localhost:5000');
+    }
+}
+
+// Bağışı gönder
+function submitDonation() {
+    const title = document.getElementById('title').value;
+    const category = document.getElementById('category-select').value;
+    const itemType = document.getElementById('item-type-select').value;
+    const condition = document.getElementById('condition').value;
+    const location = document.getElementById('location').value;
+    const description = document.getElementById('description').value;
+    const center = document.getElementById('center-select').value;
+
+    // Validasyon
+    if (!title || !category || !itemType || !condition || !location) {
+        alert('❌ Lütfen tüm zorunlu alanları doldurun!');
+        return;
+    }
+
+    const itemData = {
+        title: `${itemType} - ${title}`,
+        description: description,
+        category: category,
+        condition: condition,
+        location: location,
+        center: center
+    };
+
+    console.log('Gönderilen veri:', itemData);
+    uploadItem(itemData);
+}
+
+    </script>
+  
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9963b3be96c0e333',t:'MTc2MTc1MTcwMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="tr">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Konya Gençlik Merkezleri Haritası</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+        .hidden { display: none; }
+    </style>
+   <script>
+    function showMainSection(section) {
+            const sections = document.querySelectorAll('.main-section');
+            sections.forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(section).classList.remove('hidden');
+            }
+</script>
+
+  <style>
+       /* Map-specific styles only - navbar styles come from style.css */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #8B4B8C;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #8B4B8C;
+            opacity: 0.9;
+        }
+
+        .map-controls {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .controls-grid {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .control-group label {
+            color: #1f2937;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .control-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: white;
+            color: #1f2937;
+            font-size: 1rem;
+            min-width: 200px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-select:focus {
+            outline: none;
+            border-color: #8B4B8C;
+            box-shadow: 0 0 0 3px rgba(139, 75, 140, 0.1);
+        }
+
+        .update-btn {
+            background: linear-gradient(135deg, #8B4B8C, #bb4fbb);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .update-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 75, 140, 0.3);
+        }
+
+        .map-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+
+        .map-legend {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .legend-title {
+            color: #1f2937;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .legend-items {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .legend-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .stats-bar {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #8B4B8C;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .controls-grid {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .control-select {
+                min-width: auto;
+                width: 100%;
+            }
+
+            #map {
+                height: 400px;
+            }
+
+            .legend-items {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+     <nav class="navbar">
+        <div class="navbar-container">
+         <img src="foto.png" alt="logo" class="logo" height="50px"onerror="this.src=''; this.alt='Logo yüklenemedi'; this.style.display='none';">
+
+    
+      
+               <ul class="nav-menu" id="nav-menu">
+                <li><a href="1iindex.html" class="nav-link" onclick="showMainSection('Ana Sayfa')">Ana Sayfa</a></li>
+                <li><a href="2Genclik.html" class="nav-link active" onclick="showMainSection('Gençlik Merkezleri')">Gençlik Merkezleri</a></li>
+                <li><a href="3Bagis.html" class="nav-link" onclick="showMainSection('Bağış Yap')">Bağış Yap</a></li>
+                <li><a href="4esyaara.html" class="nav-link" onclick="showMainSection('Eşya ara ')">Eşya ara </a></li>
+                <li><a href="5profilim.html" class="nav-link" onclick="showMainSection('Profilim')">Profilim</a></li>
+             </ul>
+
+  
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+        <div id="Ana Sayfa" class="main-section hidden">Ana Sayfa Content</div>
+        <div id="Gençlik Merkezleri" class="main-section hidden">Gençlik Merkezleri Content</div>
+        <div id="Bağış Yap" class="main-section hidden">Bağış Yap Content</div>
+        <div id="Eşya ara" class="main-section hidden">Eşya ara Content</div>
+        <div id="Profilim" class="main-section hidden">Profilim Content</div>
+  
+
+  <div class="main-content">
+   <div class="header">
+    <h1>🗺️ Konya Gençlik Merkezleri</h1>
+    <p>Size en yakın gençlik merkezlerini keşfedin</p>
+   </div>
+   <div class="stats-bar">
+    <div class="stats-grid">
+     <div class="stat-item">
+      <div class="stat-number">
+       16
+      </div>
+      <div class="stat-label">
+       Toplam Merkez
+      </div>
+     </div>
+     <div class="stat-item">
+      <div class="stat-number">
+       1390
+      </div>
+      <div class="stat-label">
+       Toplam Kapasite
+      </div>
+     </div>
+     <div class="stat-item">
+      <div class="stat-number">
+       366
+      </div>
+      <div class="stat-label">
+       Aktif Eşya
+      </div>
+     </div>
+     <div class="stat-item">
+      <div class="stat-number">
+       %85
+      </div>
+      <div class="stat-label">
+       Doluluk Oranı
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="map-controls">
+    <div class="controls-grid">
+     <div class="control-group"><label>Şehir Seç:</label> <select id="citySelect" class="control-select"> <option value="konya">Konya</option> <option value="istanbul">İstanbul</option> <option value="ankara">Ankara</option> <option value="izmir">İzmir</option> </select>
+     </div>
+     <div class="control-group"><label>Gençlik Merkezi Seç:</label> <select id="centerSelect" class="control-select"> <option value="">Tümü</option> <option value="selcuklu">Selçuklu Gençlik Merkezi</option> <option value="meram">Meram Gençlik Merkezi</option> <option value="karatay">Karatay Gençlik Merkezi</option> <option value="bosna">Bosna Hersek Gençlik Merkezi</option> <option value="aksehir">Akşehir Gençlik Merkezi</option> <option value="beysehir">Beyşehir Gençlik Merkezi</option> <option value="eregli">Ereğli Gençlik Merkezi</option> <option value="karapinar">Karapınar Gençlik Merkezi</option> <option value="ilgin">Ilgın Gençlik Merkezi</option> <option value="seydisehir">Seydişehir Gençlik Merkezi</option> <option value="cihanbeyli">Cihanbeyli Gençlik Merkezi</option> <option value="kulu">Kulu Gençlik Merkezi</option> <option value="yunak">Yunak Gençlik Merkezi</option> <option value="hadim">Hadim Gençlik Merkezi</option> <option value="bozkir">Bozkır Gençlik Merkezi</option> </select>
+     </div><button onclick="updateMap()" class="update-btn">Haritayı Güncelle</button>
+    </div>
+   </div>
+   <div class="co2-savings-display" id="co2SavingsDisplay" style="display: none; background: white; border-radius: 15px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); text-align: center;">
+    <h3 style="color: #8B4B8C; margin-bottom: 1rem; font-size: 1.3rem;">🌱 CO₂ Tasarrufu</h3>
+    <p style="color: #64748b; margin-bottom: 0.5rem; font-size: 1rem;">Konumunuz ile seçtiğiniz gençlik merkezi arasındaki mesafeye göre</p>
+    <p style="color: #10b981; font-size: 1.5rem; font-weight: bold; margin: 0;" id="co2Amount">0 kg CO₂</p>
+    <p style="color: #64748b; margin-top: 0.5rem; font-size: 0.9rem;" id="co2Distance">Mesafe: 0 km</p>
+   </div>
+   <div class="map-container">
+    <div id="map"></div>
+   </div>
+   <div class="map-legend">
+    <h4 class="legend-title">Harita Açıklaması</h4>
+    <div class="legend-items">
+     <div class="legend-item">
+      <div class="legend-dot" style="background: #8B4B8C;"></div><span>Gençlik Merkezi</span>
+     </div>
+     <div class="legend-item">
+      <div class="legend-dot" style="background: #10b981;"></div><span>Aktif Bağış Noktası</span>
+     </div>
+     <div class="legend-item">
+      <div class="legend-dot" style="background: #f59e0b;"></div><span>Sizin Konumunuz</span>
+     </div>
+     <div class="legend-item">
+      <div class="legend-dot" style="background: #ef4444;"></div><span>Yoğun Bölge</span>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+        // Harita değişkenleri
+        let map;
+        let markers = [];
+        
+        // Kullanıcı konumu (sabit)
+        const userLocation = {
+            lat: 37.8600,
+            lng: 32.4900
+        };
+        
+        // İki nokta arasındaki mesafeyi hesapla (Haversine formülü)
+        function calculateDistance(lat1, lng1, lat2, lng2) {
+            const R = 6371; // Dünya yarıçapı (km)
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLng = (lng2 - lng1) * Math.PI / 180;
+            const a = 
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLng / 2) * Math.sin(dLng / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c; // Mesafe (km)
+        }
+        
+        // CO2 tasarrufu hesapla (yakın merkezler daha fazla tasarruf sağlar)
+        function calculateCO2Savings(distance) {
+            // Maksimum tasarruf (çok yakın merkezler için)
+            const maxSavings = 5.0; // kg CO2
+            // Mesafe arttıkça tasarruf azalır
+            // Formül: maxSavings / (1 + distance * reductionFactor)
+            const reductionFactor = 0.15;
+            const savings = maxSavings / (1 + distance * reductionFactor);
+            // Minimum 0.1 kg tasarruf garantisi
+            return Math.max(savings, 0.1);
+        }
+        
+        // CO2 tasarrufu göster
+        function showCO2Savings(centerName, centerLat, centerLng) {
+            const distance = calculateDistance(userLocation.lat, userLocation.lng, centerLat, centerLng);
+            const co2Savings = calculateCO2Savings(distance);
+            
+            // CO2 gösterim alanını göster
+            const co2Display = document.getElementById('co2SavingsDisplay');
+            const co2Amount = document.getElementById('co2Amount');
+            const co2Distance = document.getElementById('co2Distance');
+            
+            co2Display.style.display = 'block';
+            co2Amount.textContent = `${co2Savings.toFixed(2)} kg CO₂`;
+            co2Distance.textContent = `${centerName} - Mesafe: ${distance.toFixed(2)} km`;
+            
+            // Smooth scroll to CO2 display
+            co2Display.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Konya gençlik merkezleri verileri
+        const youthCenters = {
+            konya: [
+                {
+                    id: 'selcuklu',
+                    name: 'Selçuklu Gençlik Merkezi',
+                    lat: 37.8667,
+                    lng: 32.4833,
+                    address: 'Selçuklu, Konya',
+                    phone: '0332 123 45 67',
+                    capacity: 150,
+                    activeItems: 45,
+                    status: 'active'
+                },
+                {
+                    id: 'meram',
+                    name: 'Meram Gençlik Merkezi',
+                    lat: 37.8500,
+                    lng: 32.4500,
+                    address: 'Meram, Konya',
+                    phone: '0332 234 56 78',
+                    capacity: 120,
+                    activeItems: 32,
+                    status: 'active'
+                },
+                {
+                    id: 'karatay',
+                    name: 'Karatay Gençlik Merkezi',
+                    lat: 37.8800,
+                    lng: 32.5200,
+                    address: 'Karatay, Konya',
+                    phone: '0332 345 67 89',
+                    capacity: 100,
+                    activeItems: 28,
+                    status: 'busy'
+                },
+                {
+                    id: 'bosna',
+                    name: 'Bosna Gençlik Merkezi',
+                    lat: 37.8400,
+                    lng: 32.4700,
+                    address: 'Bosna , Konya',
+                    phone: '0332 456 78 90',
+                    capacity: 80,
+                    activeItems: 18,
+                    status: 'active'
+                },
+                {
+                    id: 'aksehir',
+                    name: 'Akşehir Gençlik Merkezi',
+                    lat: 38.3567,
+                    lng: 31.4167,
+                    address: 'Akşehir, Konya',
+                    phone: '0332 567 89 01',
+                    capacity: 110,
+                    activeItems: 35,
+                    status: 'active'
+                },
+                {
+                    id: 'beysehir',
+                    name: 'Beyşehir Gençlik Merkezi',
+                    lat: 37.6833,
+                    lng: 31.7167,
+                    address: 'Beyşehir, Konya',
+                    phone: '0332 678 90 12',
+                    capacity: 95,
+                    activeItems: 25,
+                    status: 'active'
+                },
+                {
+                    id: 'eregli',
+                    name: 'Ereğli Gençlik Merkezi',
+                    lat: 37.5167,
+                    lng: 34.0500,
+                    address: 'Ereğli, Konya',
+                    phone: '0332 789 01 23',
+                    capacity: 130,
+                    activeItems: 40,
+                    status: 'active'
+                },
+                {
+                    id: 'karapinar',
+                    name: 'Karapınar Gençlik Merkezi',
+                    lat: 37.7167,
+                    lng: 33.5500,
+                    address: 'Karapınar, Konya',
+                    phone: '0332 890 12 34',
+                    capacity: 85,
+                    activeItems: 22,
+                    status: 'active'
+                },
+                {
+                    id: 'ilgin',
+                    name: 'Ilgın Gençlik Merkezi',
+                    lat: 38.2833,
+                    lng: 31.9167,
+                    address: 'Ilgın, Konya',
+                    phone: '0332 901 23 45',
+                    capacity: 105,
+                    activeItems: 30,
+                    status: 'active'
+                },
+                {
+                    id: 'seydisehir',
+                    name: 'Seydişehir Gençlik Merkezi',
+                    lat: 37.4167,
+                    lng: 32.0000,
+                    address: 'Seydişehir, Konya',
+                    phone: '0332 012 34 56',
+                    capacity: 90,
+                    activeItems: 26,
+                    status: 'active'
+                },
+                {
+                    id: 'cihanbeyli',
+                    name: 'Cihanbeyli Gençlik Merkezi',
+                    lat: 38.6667,
+                    lng: 32.9167,
+                    address: 'Cihanbeyli, Konya',
+                    phone: '0332 123 45 67',
+                    capacity: 75,
+                    activeItems: 20,
+                    status: 'active'
+                },
+                {
+                    id: 'kulu',
+                    name: 'Kulu Gençlik Merkezi',
+                    lat: 39.0833,
+                    lng: 33.0833,
+                    address: 'Kulu, Konya',
+                    phone: '0332 234 56 78',
+                    capacity: 70,
+                    activeItems: 15,
+                    status: 'active'
+                },
+                {
+                    id: 'yunak',
+                    name: 'Yunak Gençlik Merkezi',
+                    lat: 38.8167,
+                    lng: 31.7333,
+                    address: 'Yunak, Konya',
+                    phone: '0332 345 67 89',
+                    capacity: 65,
+                    activeItems: 12,
+                    status: 'active'
+                },
+                {
+                    id: 'hadim',
+                    name: 'Hadim Gençlik Merkezi',
+                    lat: 36.9833,
+                    lng: 32.4667,
+                    address: 'Hadim, Konya',
+                    phone: '0332 456 78 90',
+                    capacity: 60,
+                    activeItems: 10,
+                    status: 'active'
+                },
+                {
+                    id: 'bozkir',
+                    name: 'Bozkır Gençlik Merkezi',
+                    lat: 37.1833,
+                    lng: 32.2500,
+                    address: 'Bozkır, Konya',
+                    phone: '0332 567 89 01',
+                    capacity: 55,
+                    activeItems: 8,
+                    status: 'active'
+                }
+            ]
+        };
+
+        // Harita başlatma fonksiyonu
+        function initMap() {
+            if (map) {
+                map.remove();
+            }
+
+            // Konya merkez koordinatları
+            map = L.map('map').setView([37.8667, 32.4833], 12);
+
+            // OpenStreetMap tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 18
+            }).addTo(map);
+
+            // Gençlik merkezlerini haritaya ekle
+            addYouthCentersToMap();
+        }
+
+        // Gençlik merkezlerini haritaya ekleme
+        function addYouthCentersToMap() {
+            const selectedCenter = document.getElementById('centerSelect').value;
+            const centers = youthCenters.konya;
+
+            // Mevcut markerları temizle
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+
+            centers.forEach(center => {
+                // Eğer belirli bir merkez seçildiyse, sadece onu göster
+                if (selectedCenter && selectedCenter !== center.id) {
+                    return;
+                }
+
+                // Merkez durumuna göre renk belirle
+                const markerColor = center.status === 'busy' ? '#ef4444' : '#8B4B8C';
+                const statusText = center.status === 'busy' ? 'Yoğun' : 'Aktif';
+
+                // Marker oluştur
+                const marker = L.marker([center.lat, center.lng], {
+                    icon: L.divIcon({
+                        className: 'custom-marker',
+                        html: `<div style="background: ${markerColor}; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; border: 3px solid white; box-shadow: 0 3px 15px rgba(0,0,0,0.4); font-size: 1.2rem;">🏢</div>`,
+                        iconSize: [35, 35],
+                        iconAnchor: [17.5, 17.5]
+                    })
+                }).addTo(map);
+                
+                // Her marker için ayrı hover timeout
+                let hoverTimeout;
+
+                // Popup içeriği
+                const popupContent = `
+                    <div style="min-width: 280px; font-family: 'Segoe UI', sans-serif;">
+                        <h3 style="color: #8B4B8C; margin-bottom: 15px; font-size: 1.2rem; text-align: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">${center.name}</h3>
+                        
+                        <div style="display: grid; gap: 10px; margin-bottom: 15px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 1.1rem;">📍</span>
+                                <span><strong>Adres:</strong> ${center.address}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 1.1rem;">📞</span>
+                                <span><strong>Telefon:</strong> ${center.phone}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 1.1rem;">👥</span>
+                                <span><strong>Kapasite:</strong> ${center.capacity} kişi</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 1.1rem;">📦</span>
+                                <span><strong>Aktif Eşya:</strong> ${center.activeItems} adet</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 1.1rem;">🔄</span>
+                                <span><strong>Durum:</strong> <span style="color: ${markerColor}; font-weight: bold;">${statusText}</span></span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px; background: #f0fdf4; padding: 8px; border-radius: 8px; margin-top: 5px;">
+                                <span style="font-size: 1.1rem;">🌱</span>
+                                <span><strong>CO₂ Tasarrufu:</strong> <span style="color: #10b981; font-weight: bold;">${(calculateCO2Savings(calculateDistance(userLocation.lat, userLocation.lng, center.lat, center.lng))).toFixed(2)} kg</span></span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 8px; justify-content: center;">
+                            <a href="4esyaara.html" style="background: #8B4B8C; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-size: 0.9rem; cursor: pointer; font-weight: 600; transition: all 0.3s ease; text-decoration: none; text-align: center;">📦 Mevcut Bağışları Göster</a>
+                            <div style="display: flex; gap: 8px; justify-content: center;">
+                                <button onclick="showDirections('${center.name}', ${center.lat}, ${center.lng})" style="background: #10b981; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-size: 0.9rem; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">🗺️ Yol Tarifi</button>
+                                <button onclick="contactCenter('${center.name}', '${center.phone}')" style="background: #8B4B8C; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-size: 0.9rem; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">📞 İletişim</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                marker.bindPopup(popupContent, {
+                    maxWidth: 300,
+                    className: 'custom-popup',
+                    closeOnClick: false,
+                    autoClose: false
+                });
+                
+                // Hover event - popup'ı göster
+                marker.on('mouseover', function(e) {
+                    clearTimeout(hoverTimeout);
+                    this.openPopup();
+                });
+                
+                // Mouse leave event - popup'ı kapat (kısa bir gecikme ile)
+                marker.on('mouseout', function(e) {
+                    hoverTimeout = setTimeout(() => {
+                        if (!this._popup._container || !this._popup._container.matches(':hover')) {
+                            this.closePopup();
+                        }
+                    }, 300);
+                });
+                
+                // Popup üzerine gelince kapatma işlemini iptal et
+                marker.on('popupopen', function() {
+                    const popup = this.getPopup();
+                    if (popup && popup._container) {
+                        popup._container.addEventListener('mouseenter', () => {
+                            clearTimeout(hoverTimeout);
+                        });
+                        popup._container.addEventListener('mouseleave', () => {
+                            hoverTimeout = setTimeout(() => {
+                                this.closePopup();
+                            }, 300);
+                        });
+                    }
+                });
+                
+                // Click event - CO2 tasarrufu göster
+                marker.on('click', function(e) {
+                    showCO2Savings(center.name, center.lat, center.lng);
+                });
+                
+                markers.push(marker);
+            });
+
+            // Kullanıcı konumu (örnek)
+            const userMarker = L.marker([37.8600, 32.4900], {
+                icon: L.divIcon({
+                    className: 'user-marker',
+                    html: `<div style="background: #f59e0b; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; border: 3px solid white; box-shadow: 0 3px 15px rgba(0,0,0,0.4); font-size: 1.1rem; animation: pulse 2s infinite;">📍</div>`,
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 15]
+                })
+            }).addTo(map);
+
+            userMarker.bindPopup(`
+                <div style="text-align: center; font-family: 'Segoe UI', sans-serif;">
+                    <h4 style="color: #f59e0b; margin-bottom: 10px;">📍 Sizin Konumunuz</h4>
+                    <p style="margin: 0; color: #64748b;">Konya Merkez</p>
+                </div>
+            `);
+            markers.push(userMarker);
+
+            // Haritayı tüm markerları gösterecek şekilde ayarla
+            if (markers.length > 0) {
+                const group = new L.featureGroup(markers);
+                map.fitBounds(group.getBounds().pad(0.1));
+            }
+        }
+
+        // Harita güncelleme fonksiyonu
+        function updateMap() {
+            addYouthCentersToMap();
+            showNotification('Harita güncellendi! 🗺️', 'success');
+        }
+
+        // Yol tarifi fonksiyonu
+        function showDirections(centerName, lat, lng) {
+            const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`;
+            window.open(url, '_blank', 'noopener,noreferrer');
+            showNotification(`${centerName} için yol tarifi açılıyor... 🚗`, 'success');
+        }
+
+        // İletişim fonksiyonu
+        function contactCenter(centerName, phone) {
+            navigator.clipboard.writeText(phone).then(() => {
+                showNotification(`${centerName} telefon numarası kopyalandı: ${phone} 📞`, 'success');
+            }).catch(() => {
+                showNotification(`${centerName} - Telefon: ${phone}`, 'info');
+            });
+        }
+
+        // Bildirim gösterme fonksiyonu
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            const colors = {
+                success: '#10b981',
+                error: '#ef4444',
+                info: '#3b82f6'
+            };
+
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${colors[type] || colors.info};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                font-weight: 600;
+                z-index: 10000;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                animation: slideInRight 0.3s ease, fadeOut 0.3s ease 3.7s;
+                max-width: 350px;
+                font-size: 0.9rem;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+
+        // CSS animasyonları ekle
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+            
+            .custom-popup .leaflet-popup-content-wrapper {
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            }
+            
+            .custom-popup .leaflet-popup-tip {
+                background: white;
+            }
+            
+            .custom-marker {
+                cursor: pointer;
+                transition: transform 0.2s ease;
+            }
+            
+            .custom-marker:hover {
+                transform: scale(1.15);
+                z-index: 1000;
+            }
+            
+            .leaflet-marker-icon {
+                transition: transform 0.2s ease;
+            }
+            
+            .leaflet-marker-icon:hover {
+                transform: scale(1.15);
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Sayfa yüklendiğinde haritayı başlat
+        document.addEventListener('DOMContentLoaded', function() {
+            initMap();
+            showNotification('Konya Gençlik Merkezleri Haritası yüklendi! 🎉', 'success');
+        });
+
+        // Şehir değiştiğinde uyarı ver
+        document.getElementById('citySelect').addEventListener('change', function() {
+            if (this.value !== 'konya') {
+                showNotification('Şu anda sadece Konya verileri mevcut 📍', 'info');
+                this.value = 'konya';
+            }
+        });
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99a31c5ee15d0d26',t:'MTc2MjQxNjU4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="tr">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hesabım - ReHome</title>
+   <link rel="stylesheet" href="style.css">
+    </style>
+ <script>
+    function showMainSection(section) {
+            const sections = document.querySelectorAll('.main-section');
+            sections.forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(section).classList.remove('hidden');
+            }
+</script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+     <nav class="navbar">
+        <div class="navbar-container">
+         <img src="foto.png" alt="logo" class="logo" height="50px"onerror="this.src=''; this.alt='Logo yüklenemedi'; this.style.display='none';">
+
+    
+      
+               <ul class="nav-menu" id="nav-menu">
+                <li><a href="1iindex.html" class="nav-link" onclick="showMainSection('Ana Sayfa')">Ana Sayfa</a></li>
+                <li><a href="2Genclik.html" class="nav-link" onclick="showMainSection('Gençlik Merkezleri')">Gençlik Merkezleri</a></li>
+                <li><a href="3Bagis.html" class="nav-link" onclick="showMainSection('Bağış Yap')">Bağış Yap</a></li>
+                <li><a href="4esyaara.html" class="nav-link" onclick="showMainSection('Eşya ara ')">Eşya ara </a></li>
+                <li><a href="5profilim.html" class="nav-link active" onclick="showMainSection('Profilim')">Profilim</a></li>
+             </ul>
+
+  
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+         <div id="Ana Sayfa" class="main-section hidden">Ana Sayfa Content</div>
+        <div id="Gençlik Merkezleri" class="main-section hidden">Gençlik Merkezleri Content</div>
+        <div id="Bağış Yap" class="main-section hidden">Bağış Yap Content</div>
+        <div id="Eşya ara" class="main-section hidden">Eşya ara Content</div>
+        <div id="Profilim" class="main-section hidden">Profilim Content</div>
+  
+  <div class="profile-container">
+   <div class="sidebar">
+    <div class="logo" style="text-align: center; padding: 0 1rem;">
+     <h2 style="margin: 0; text-align: center;">ReHome</h2>
+    </div>
+    <nav class="sidebar-menu">
+     <div class="sidebar-item active" onclick="showMainSection('account')"><span class="sidebar-icon">👤</span> <span>Hesabım</span>
+     </div>
+     <div class="sidebar-item" onclick="showMainSection('donations')"><span class="sidebar-icon">📦</span> <span>Bağışlarım</span>
+     </div>
+     <div class="sidebar-item" onclick="showMainSection('received')"><span class="sidebar-icon">📥</span> <span>Alınan Eşyalar</span>
+     </div>
+     <div class="sidebar-item" onclick="showMainSection('points')"><span class="sidebar-icon">⭐</span> <span>Puanlarım</span>
+     </div>
+     <div class="sidebar-item" onclick="showMainSection('co2')"><span class="sidebar-icon">🌱</span> <span>CO₂ Tasarrufum</span>
+     </div>
+     <div class="sidebar-item" onclick="showMainSection('coupons')"><span class="sidebar-icon">🎫</span> <span>Kupon Çevir</span>
+     </div>
+     <div class="sidebar-item" onclick="showMainSection('messages')"><span class="sidebar-icon">💬</span> <span>Mesajlarım</span>
+     </div>
+     <div class="sidebar-item" onclick="showMainSection('settings')"><span class="sidebar-icon">⚙️</span> <span>Ayarlar</span>
+     </div>
+     <div class="sidebar-item" onclick="showMainSection('help')"><span class="sidebar-icon">❓</span> <span>Yardım</span>
+     </div>
+    </nav>
+   </div>
+   <div class="main-content"><!-- Hesabım Bölümü -->
+    <div id="account-section" class="content-section active">
+     <div class="profile-header">
+      <div class="profile-avatar"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="Profil Fotoğrafı">
+      </div>
+      <div class="profile-info">
+       <h1>Ahmet Yılmaz</h1>
+       <p>Premium Üye</p>
+       <div class="profile-stats"><span>📅 Üyelik: 2 yıl</span> <span>🎯 Seviye: Gold</span>
+       </div>
+      </div>
+     </div>
+     <div class="stats-grid">
+      <div class="stat-card">
+       <div class="stat-icon">
+        📦
+       </div>
+       <div class="stat-info">
+        <h3>127</h3>
+        <p>Toplam Bağış</p>
+       </div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-icon">
+        🌱
+       </div>
+       <div class="stat-info">
+        <h3>45.2 kg</h3>
+        <p>CO₂ Tasarrufu</p>
+       </div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-icon">
+        ⭐
+       </div>
+       <div class="stat-info">
+        <h3>4.8</h3>
+        <p>Değerlendirme</p>
+       </div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-icon">
+        🏆
+       </div>
+       <div class="stat-info">
+        <h3>12</h3>
+        <p>Rozet</p>
+       </div>
+      </div>
+     </div>
+    </div><!-- Bağışlarım Bölümü -->
+    <div id="donations-section" class="content-section">
+     <div class="section-header">
+      <h2>📦 Bağışlarım</h2>
+      <p>Yaptığınız tüm bağışları buradan takip edebilirsiniz</p>
+     </div>
+     <div class="donations-list">
+      <div class="donation-item">
+       <div class="donation-image"><img src="çalışmamasa.jpeg">
+       </div>
+       <div class="donation-info">
+        <h3>Çalışma masası</h3>
+        <p>1 parça • Merkez Gençlik Merkezi</p><span class="donation-date">15 Aralık 2024</span>
+       </div>
+       <div class="donation-status completed">
+        Teslim Edildi
+       </div>
+      </div>
+      <div class="donation-item">
+       <div class="donation-image"><img src="matkitap.jpeg">
+       </div>
+       <div class="donation-info">
+        <h3>Ders Kitapları</h3>
+        <p>12 kitap • Bahçeşehir Gençlik Merkezi</p><span class="donation-date">10 Aralık 2024</span>
+       </div>
+       <div class="donation-status pending">
+        Beklemede
+       </div>
+      </div>
+      <div class="donation-item">
+       <div class="donation-image"><img src="tencereseti.jpeg">
+       </div>
+       <div class="donation-info">
+        <h3>Tencere seti</h3>
+        <p>4 parça • Merkez Gençlik Merkezi</p><span class="donation-date">5 Aralık 2024</span>
+       </div>
+       <div class="donation-status completed">
+        Teslim Edildi
+       </div>
+      </div>
+     </div>
+    </div><!-- Alınan Eşyalar Bölümü -->
+    <div id="received-section" class="content-section">
+     <div class="section-header">
+      <h2>📥 Alınan Eşyalar</h2>
+      <p>Gençlik merkezlerinden aldığınız eşyalar</p>
+     </div>
+     <div class="donations-list">
+      <div class="donation-item">
+       <div class="donation-image"><img src="laptop.jpeg">
+       </div>
+       <div class="donation-info">
+        <h3>Laptop Bilgisayar</h3>
+        <p>1 adet • Merkez Gençlik Merkezi</p><span class="donation-date">12 Aralık 2024</span>
+       </div>
+       <div class="donation-status completed">
+        Alındı
+       </div>
+      </div>
+      <div class="donation-item">
+       <div class="donation-image"><img src="prog.kitap.jpeg">
+       </div>
+       <div class="donation-info">
+        <h3>Programlama Kitapları</h3>
+        <p>8 kitap • Bahçeşehir Gençlik Merkezi</p><span class="donation-date">8 Aralık 2024</span>
+       </div>
+       <div class="donation-status completed">
+        Alındı
+       </div>
+      </div>
+      <div class="donation-item">
+       <div class="donation-image"><img src="koltuk.jpeg">
+       </div>
+       <div class="donation-info">
+        <h3>koltuk takımı</h3>
+        <p>3 parça • Merkez Gençlik Merkezi</p><span class="donation-date">1 Aralık 2024</span>
+       </div>
+       <div class="donation-status completed">
+        Alındı
+       </div>
+      </div>
+      <div class="donation-item">
+       <div class="donation-image"><img src="buzdolabı.jpeg">
+       </div>
+       <div class="donation-info">
+        <h3>Buzdolabı</h3>
+        <p>1 adet • Selçuklu Gençlik Merkezi</p><span class="donation-date">28 Kasım 2024</span>
+       </div>
+       <div class="donation-status completed">
+        Alındı
+       </div>
+      </div>
+      <div class="donation-item">
+       <div class="donation-image"><img src="sandalye.jpeg">
+       </div>
+       <div class="donation-info">
+        <h3>Sandalye</h3>
+        <p>4 adet • Meram Gençlik Merkezi</p><span class="donation-date">25 Kasım 2024</span>
+       </div>
+       <div class="donation-status completed">
+        Alındı
+       </div>
+      </div>
+      <div class="donation-item">
+       <div class="donation-image"><img src="tencereseti.jpeg">
+       </div>
+       <div class="donation-info">
+        <h3>Mutfak Gereçleri</h3>
+        <p>6 parça • Karatay Gençlik Merkezi</p><span class="donation-date">20 Kasım 2024</span>
+       </div>
+       <div class="donation-status completed">
+        Alındı
+       </div>
+      </div>
+     </div>
+    </div><!-- Puanlarım Bölümü -->
+    <div id="points-section" class="content-section">
+     <div class="section-header">
+      <h2>⭐ Puanlarım</h2>
+      <p>Bağış ve aktivitelerinizle kazandığınız puanlar</p>
+     </div>
+     <div class="stats-grid">
+      <div class="stat-card">
+       <div class="stat-icon">
+        💎
+       </div>
+       <div class="stat-info">
+        <h3>2,450</h3>
+        <p>Toplam Puan</p>
+       </div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-icon">
+        🔥
+       </div>
+       <div class="stat-info">
+        <h3>180</h3>
+        <p>Bu Ay Kazanılan</p>
+       </div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-icon">
+        🎯
+       </div>
+       <div class="stat-info">
+        <h3>Gold</h3>
+        <p>Mevcut Seviye</p>
+       </div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-icon">
+        ⬆️
+       </div>
+       <div class="stat-info">
+        <h3>550</h3>
+        <p>Platinum'a Kalan</p>
+       </div>
+      </div>
+     </div>
+     <div class="points-history">
+      <h3>Puan Geçmişi</h3>
+      <div class="donations-list">
+       <div class="donation-item">
+        <div class="donation-image">
+         <div style="background: linear-gradient(135deg, #10b981, #059669); width: 80px; height: 80px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+          +50
+         </div>
+        </div>
+        <div class="donation-info">
+         <h3>Ders kitapları Bağışı</h3>
+         <p>5 kitap bağışı</p><span class="donation-date">15 Aralık 2024</span>
+        </div>
+        <div class="donation-status completed">
+         +50 Puan
+        </div>
+       </div>
+       <div class="donation-item">
+        <div class="donation-image">
+         <div style="background: linear-gradient(135deg, #8B4B8C, #bb4fbb); width: 80px; height: 80px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+          +30
+         </div>
+        </div>
+        <div class="donation-info">
+         <h3>Kitap Bağışı</h3>
+         <p>12 adet ders kitabı</p><span class="donation-date">10 Aralık 2024</span>
+        </div>
+        <div class="donation-status completed">
+         +30 Puan
+        </div>
+       </div>
+       <div class="donation-item">
+        <div class="donation-image">
+         <div style="background: linear-gradient(135deg, #f59e0b, #d97706); width: 80px; height: 80px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+          +25
+         </div>
+        </div>
+        <div class="donation-info">
+         <h3>Profil Tamamlama</h3>
+         <p>Profil bilgilerini tamamladınız</p><span class="donation-date">5 Aralık 2024</span>
+        </div>
+        <div class="donation-status completed">
+         +25 Puan
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- CO₂ Tasarrufum Bölümü -->
+    <div id="co2-section" class="content-section">
+     <div class="section-header">
+      <h2>🌱 CO₂ Tasarrufum</h2>
+      <p>Çevreye katkınızı takip edin</p>
+     </div>
+     <div class="stats-grid">
+      <div class="stat-card">
+       <div class="stat-icon">
+        🌍
+       </div>
+       <div class="stat-info">
+        <h3>45.2 kg</h3>
+        <p>Toplam CO₂ Tasarrufu</p>
+       </div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-icon">
+        📅
+       </div>
+       <div class="stat-info">
+        <h3>8.5 kg</h3>
+        <p>Bu Ay</p>
+       </div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-icon">
+        🌳
+       </div>
+       <div class="stat-info">
+        <h3>2.1</h3>
+        <p>Ağaç Eşdeğeri</p>
+       </div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-icon">
+        🚗
+       </div>
+       <div class="stat-info">
+        <h3>195 km</h3>
+        <p>Araba Yolculuğu</p>
+       </div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-icon">
+        💚
+       </div>
+       <div class="stat-info">
+        <h3>12.5</h3>
+        <p>Sağlık Etkisi</p>
+       </div>
+      </div>
+     </div>
+     <div class="co2-chart">
+      <h3>Aylık CO₂ Tasarrufu</h3>
+      <div style="background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); margin-top: 1rem;">
+       <div style="display: flex; justify-content: space-between; align-items: end; height: 200px; gap: 1rem;">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+         <div style="background: linear-gradient(135deg, #10b981, #059669); width: 40px; height: 60px; border-radius: 5px;"></div><span style="color: #64748b; font-size: 0.9rem;">Oca</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+         <div style="background: linear-gradient(135deg, #10b981, #059669); width: 40px; height: 80px; border-radius: 5px;"></div><span style="color: #64748b; font-size: 0.9rem;">Şub</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+         <div style="background: linear-gradient(135deg, #10b981, #059669); width: 40px; height: 120px; border-radius: 5px;"></div><span style="color: #64748b; font-size: 0.9rem;">Mar</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+         <div style="background: linear-gradient(135deg, #10b981, #059669); width: 40px; height: 100px; border-radius: 5px;"></div><span style="color: #64748b; font-size: 0.9rem;">Nis</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+         <div style="background: linear-gradient(135deg, #10b981, #059669); width: 40px; height: 140px; border-radius: 5px;"></div><span style="color: #64748b; font-size: 0.9rem;">May</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+         <div style="background: linear-gradient(135deg, #10b981, #059669); width: 40px; height: 90px; border-radius: 5px;"></div><span style="color: #64748b; font-size: 0.9rem;">Haz</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Kupon Çevir Bölümü -->
+    <div id="coupons-section" class="content-section">
+     <div class="section-header">
+      <h2>🎫 Kupon Çevir</h2>
+      <p>Puanlarınızı değerli kuponlara çevirin</p>
+     </div>
+     <div class="current-points" style="background: white; border-radius: 15px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); text-align: center;">
+      <h3 style="color: #8B4B8C; font-size: 1.5rem; margin-bottom: 0.5rem;">Mevcut Puanınız</h3>
+      <div id="current-points-display" style="font-size: 3rem; font-weight: bold; color: #1f2937; margin-bottom: 1rem;">
+       2,450
+      </div>
+      <p style="color: #64748b;">Bu hafta puanlarınızla çevirebileceğiniz işletmeler aşağıda listelenmiştir</p>
+     </div>
+     <div id="businesses-grid" class="coupons-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+      <!-- Businesses will be dynamically loaded here -->
+     </div>
+     <div class="exchange-history" style="margin-top: 2rem;">
+      <h3>Kupon Geçmişi</h3>
+      <div class="donations-list">
+       <div class="donation-item">
+        <div class="donation-image">
+         <div style="background: linear-gradient(135deg, #f59e0b, #d97706); width: 80px; height: 80px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+          🛒
+         </div>
+        </div>
+        <div class="donation-info">
+         <h3>Market Kuponu</h3>
+         <p>50 TL değerinde • 500 puan</p><span class="donation-date">10 Aralık 2024</span>
+        </div>
+        <div class="donation-status completed">
+         Kullanıldı
+        </div>
+       </div>
+       <div class="donation-item">
+        <div class="donation-image">
+         <div style="background: linear-gradient(135deg, #8B4B8C, #bb4fbb); width: 80px; height: 80px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+          🎬
+         </div>
+        </div>
+        <div class="donation-info">
+         <h3>Sinema Kuponu</h3>
+         <p>2 kişilik bilet • 400 puan</p><span class="donation-date">5 Aralık 2024</span>
+        </div>
+        <div class="donation-status pending">
+         Aktif
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Mesajlarım Bölümü -->
+    <div id="messages-section" class="content-section">
+     <div class="section-header">
+      <h2>💬 Mesajlarım</h2>
+      <p>Gençlik merkezleri ve diğer kullanıcılardan gelen mesajlar</p>
+     </div>
+     <div class="messages-list">
+      <div class="message-item unread">
+       <div class="message-avatar"><img src="duzce.jpeg">
+       </div>
+       <div class="message-content">
+        <div class="message-header">
+         <h4>Merkez Gençlik Merkezi</h4><span class="message-time">2 saat önce</span>
+        </div>
+        <p>Bağışladığınız ders kitapları için teşekkür ederiz. Çok ihtiyaç sahibi gençlere ulaştı.</p>
+       </div>
+       <div class="message-status">
+        ●
+       </div>
+      </div>
+      <div class="message-item">
+       <div class="message-avatar"><img src="nedim.jpg">
+       </div>
+       <div class="message-content">
+        <div class="message-header">
+         <h4>Nedim Sözbir</h4><span class="message-time">1 gün önce</span>
+        </div>
+        <p>Merhaba! Bağışladığınız kitaplar hakkında soru sormak istiyorum.</p>
+       </div>
+      </div>
+      <div class="message-item">
+       <div class="message-avatar"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=100&amp;q=80" alt="Sistem">
+       </div>
+       <div class="message-content">
+        <div class="message-header">
+         <h4>ReHome Sistemi</h4><span class="message-time">3 gün önce</span>
+        </div>
+        <p>Tebrikler! Gold seviyesine ulaştınız. Yeni rozetinizi kazandınız.</p>
+       </div>
+      </div>
+     </div>
+    </div><!-- Ayarlar Bölümü -->
+    <div id="settings-section" class="content-section">
+     <div class="section-header">
+      <h2>⚙️ Ayarlar</h2>
+      <p>Hesap ve uygulama ayarlarınızı yönetin</p>
+     </div>
+     <div class="settings-groups">
+      <div class="settings-group">
+       <h3>Profil Ayarları</h3>
+       <div class="setting-item">
+        <div class="setting-info">
+         <h4>Profil Fotoğrafı</h4>
+         <p>Profil fotoğrafınızı değiştirin</p>
+        </div><button class="setting-btn">Değiştir</button>
+       </div>
+       <div class="setting-item">
+        <div class="setting-info">
+         <h4>Kişisel Bilgiler</h4>
+         <p>Ad, soyad ve iletişim bilgilerinizi güncelleyin</p>
+        </div><button class="setting-btn">Düzenle</button>
+       </div>
+      </div>
+      <div class="settings-group">
+       <h3>Bildirim Ayarları</h3>
+       <div class="setting-item">
+        <div class="setting-info">
+         <h4>E-posta Bildirimleri</h4>
+         <p>Bağış durumu ve mesaj bildirimlerini alın</p>
+        </div><label class="toggle-switch"> <input type="checkbox" checked> <span class="toggle-slider"></span> </label>
+       </div>
+       <div class="setting-item">
+        <div class="setting-info">
+         <h4>Push Bildirimleri</h4>
+         <p>Anlık bildirimler alın</p>
+        </div><label class="toggle-switch"> <input type="checkbox"> <span class="toggle-slider"></span> </label>
+       </div>
+      </div>
+      <div class="settings-group">
+       <h3>Gizlilik</h3>
+       <div class="setting-item">
+        <div class="setting-info">
+         <h4>Profil Görünürlüğü</h4>
+         <p>Profilinizin diğer kullanıcılara görünürlüğü</p>
+        </div><select class="setting-select"> <option>Herkese Açık</option> <option>Sadece Arkadaşlar</option> <option>Gizli</option> </select>
+       </div>
+      </div>
+     </div>
+    </div><!-- Yardım Bölümü -->
+    <div id="help-section" class="content-section">
+     <div class="section-header">
+      <h2>❓ Yardım</h2>
+      <p>Sık sorulan sorular ve destek</p>
+     </div>
+     <div class="help-content">
+      <div class="faq-section">
+       <h3>Sık Sorulan Sorular</h3>
+       <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+         <h4>Nasıl bağış yapabilirim?</h4><span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer" style="display: none;">
+         <p>Ana sayfadan "Bağış Yap" butonuna tıklayarak bağış sürecini başlatabilirsiniz. Eşyalarınızın fotoğraflarını çekin ve açıklama ekleyin.</p>
+        </div>
+       </div>
+       <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+         <h4>Bağışım ne zaman teslim alınır?</h4><span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer" style="display: none;">
+         <p>Bağışınız onaylandıktan sonra 2-3 iş günü içinde size uygun bir zamanda teslim alınır.</p>
+        </div>
+       </div>
+       <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+         <h4>Hangi eşyaları bağışlayabilirim?</h4><span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer" style="display: none;">
+         <p>Mobilya, mutfak eşyaları, ev aletleri, elektronik eşyalar ve eğitim materyalleri gibi eşyaları bağışlayabilirsiniz.</p>   
+        </div>
+       </div>
+      </div>
+      <div class="contact-section">
+       <h3>İletişim</h3>
+       <div class="contact-info">
+        <div class="contact-item"><span class="contact-icon">📧</span> <span>destek@rehome.com</span>
+        </div>
+        <div class="contact-item"><span class="contact-icon">📞</span> <span>0850 123 45 67</span>
+        </div>
+        <div class="contact-item"><span class="contact-icon">💬</span> <span>Canlı Destek (09:00-18:00)</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+        function showMainSection(sectionName) {
+            // Tüm bölümleri gizle
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Tüm sidebar öğelerinden active sınıfını kaldır
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            sidebarItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Seçilen bölümü göster
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.classList.add('active');
+                
+                // If coupons section is shown, reload businesses
+                if (sectionName === 'coupons' && typeof loadBusinesses === 'function') {
+                    loadBusinesses();
+                }
+            }
+
+            // Tıklanan sidebar öğesine active sınıfı ekle
+            event.target.closest('.sidebar-item').classList.add('active');
+        }
+
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+            
+            if (answer.style.display === 'none' || answer.style.display === '') {
+                answer.style.display = 'block';
+                toggle.textContent = '-';
+            } else {
+                answer.style.display = 'none';
+                toggle.textContent = '+';
+            }
+        }
+
+        let currentPoints = 2450;
+
+        // Business data with products and point requirements
+        const businesses = [
+            {
+                id: 'beltur',
+                name: 'Beltur',
+                icon: '☕',
+                minPoints: 200,
+                products: [
+                    { name: 'Kahve (1 adet)', points: 200, value: '40 TL' },
+                    { name: 'Kahve + Pasta', points: 350, value: '70 TL' }
+                ]
+            },
+            {
+                id: 'halkekmek',
+                name: 'Halk Ekmek',
+                icon: '🍞',
+                minPoints: 150,
+                products: [
+                    { name: 'Ekmek Paketi', points: 150, value: '30 TL' },
+                    { name: 'Unlu Mamul Seti', points: 300, value: '60 TL' }
+                ]
+            },
+            {
+                id: 'sosyaltesisler',
+                name: 'Sosyal Tesisler',
+                icon: '🏛️',
+                minPoints: 250,
+                products: [
+                    { name: 'Yemek Kuponu', points: 250, value: '50 TL' },
+                    { name: 'Aktivite Kuponu', points: 400, value: '80 TL' }
+                ]
+            },
+            {
+                id: 'cinemaximum',
+                name: 'Cinemaximum',
+                icon: '🎬',
+                minPoints: 300,
+                products: [
+                    { name: 'Sinema Bileti (1 kişi)', points: 300, value: '60 TL' },
+                    { name: 'Sinema Bileti (2 kişi)', points: 500, value: '100 TL' }
+                ]
+            },
+            {
+                id: 'teknosa',
+                name: 'Teknosa',
+                icon: '💻',
+                minPoints: 500,
+                products: [
+                    { name: 'Kulaklık', points: 500, value: '100 TL' },
+                    { name: 'Telefon Aksesuar Seti', points: 700, value: '140 TL' }
+                ]
+            },
+            {
+                id: 'kirtasiye',
+                name: 'Yerel Kırtasiye',
+                icon: '📝',
+                minPoints: 200,
+                products: [
+                    { name: 'Kırtasiye Seti', points: 200, value: '40 TL' },
+                    { name: 'Defter ve Kalem Paketi', points: 350, value: '70 TL' }
+                ]
+            }
+        ];
+
+        // Load businesses on page load
+        function loadBusinesses() {
+            const grid = document.getElementById('businesses-grid');
+            if (!grid) return;
+
+            grid.innerHTML = '';
+
+            // Filter businesses based on available points (show businesses where user has at least minPoints)
+            const availableBusinesses = businesses.filter(business => currentPoints >= business.minPoints);
+
+            if (availableBusinesses.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);">
+                        <p style="color: #64748b; font-size: 1.1rem;">Henüz yeterli puanınız bulunmuyor. Daha fazla bağış yaparak puan kazanabilirsiniz!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            availableBusinesses.forEach(business => {
+                const businessCard = document.createElement('div');
+                businessCard.className = 'business-card';
+                businessCard.style.cssText = 'background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); border: 2px solid #f1f5f9; transition: all 0.3s ease;';
+
+                // Filter products based on available points
+                const availableProducts = business.products.filter(product => currentPoints >= product.points);
+
+                let productsHTML = '';
+                if (availableProducts.length > 0) {
+                    productsHTML = availableProducts.map(product => `
+                        <div style="background: #f8fafc; padding: 1rem; border-radius: 10px; margin-bottom: 0.75rem; border-left: 3px solid #8B4B8C;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <h5 style="color: #1f2937; font-size: 1rem; margin: 0; font-weight: 600;">${product.name}</h5>
+                                <span style="color: #8B4B8C; font-weight: bold; font-size: 0.95rem;">${product.points} Puan</span>
+                            </div>
+                            <p style="color: #64748b; font-size: 0.85rem; margin: 0 0 0.5rem 0;">${product.value} değerinde</p>
+                            <button class="setting-btn" style="width: 100%; font-size: 0.9rem; padding: 0.5rem;" onclick="exchangeCoupon('${business.id}', '${product.name}', ${product.points}, '${product.value}')">Çevir</button>
+                        </div>
+                    `).join('');
+                }
+
+                businessCard.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #f1f5f9;">
+                        <div style="font-size: 2.5rem;">
+                            ${business.icon}
+                        </div>
+                        <div>
+                            <h4 style="color: #1f2937; font-size: 1.3rem; margin-bottom: 0.3rem; font-weight: 700;">${business.name}</h4>
+                            <p style="color: #64748b; font-size: 0.9rem; margin: 0;">Minimum ${business.minPoints} puan gerekli</p>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <h5 style="color: #1f2937; font-size: 1rem; margin-bottom: 1rem; font-weight: 600;">Çevrilebilir Ürünler:</h5>
+                        ${productsHTML || '<p style="color: #ef4444; font-size: 0.9rem;">Bu işletme için yeterli puanınız bulunmuyor.</p>'}
+                    </div>
+                `;
+
+                grid.appendChild(businessCard);
+            });
+        }
+
+        function exchangeCoupon(businessId, productName, requiredPoints, productValue) {
+            if (currentPoints < requiredPoints) {
+                showInlineMessage('Yetersiz puan! Daha fazla bağış yaparak puan kazanabilirsiniz.', 'error');
+                return;
+            }
+
+            const business = businesses.find(b => b.id === businessId);
+            const businessName = business ? business.name : 'İşletme';
+
+            // Inline onay mesajı göster
+            showConfirmation(`${businessName} - ${productName} (${productValue}) için ${requiredPoints} puan harcamak istediğinizden emin misiniz?`, () => {
+                currentPoints -= requiredPoints;
+                
+                // Mevcut puan göstergesini güncelle
+                const pointsDisplay = document.getElementById('current-points-display');
+                if (pointsDisplay) {
+                    pointsDisplay.textContent = currentPoints.toLocaleString();
+                }
+
+                showInlineMessage(`Tebrikler! ${businessName} kuponunuz başarıyla oluşturuldu. Kuponunuz e-posta adresinize gönderildi.`, 'success');
+                
+                // Kupon geçmişine ekle
+                addCouponToHistory(businessId, `${businessName} - ${productName}`, productValue, requiredPoints);
+                
+                // Businesses listesini yeniden yükle
+                loadBusinesses();
+            });
+        }
+
+        // Load businesses when coupons section is shown
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial load
+            loadBusinesses();
+            
+            // Reload when coupons section is accessed
+            const couponsSection = document.getElementById('coupons-section');
+            if (couponsSection) {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                            if (couponsSection.classList.contains('active')) {
+                                loadBusinesses();
+                            }
+                        }
+                    });
+                });
+                observer.observe(couponsSection, { attributes: true });
+            }
+        });
+
+        function showInlineMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                color: white;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                ${type === 'error' ? 'background: #ef4444;' : 'background: #10b981;'}
+            `;
+            messageDiv.textContent = message;
+            document.body.appendChild(messageDiv);
+
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 4000);
+        }
+
+        function showConfirmation(message, onConfirm) {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            `;
+
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                background: white;
+                padding: 2rem;
+                border-radius: 15px;
+                max-width: 400px;
+                text-align: center;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            `;
+
+            modal.innerHTML = `
+                <p style="margin-bottom: 2rem; color: #1f2937; font-size: 1.1rem;">${message}</p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <button id="confirm-btn" style="background: linear-gradient(135deg, #8B4B8C, #bb4fbb); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600; cursor: pointer;">Evet</button>
+                    <button id="cancel-btn" style="background: #e5e7eb; color: #374151; border: none; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600; cursor: pointer;">İptal</button>
+                </div>
+            `;
+
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+
+            document.getElementById('confirm-btn').onclick = () => {
+                onConfirm();
+                overlay.remove();
+            };
+
+            document.getElementById('cancel-btn').onclick = () => {
+                overlay.remove();
+            };
+
+            overlay.onclick = (e) => {
+                if (e.target === overlay) {
+                    overlay.remove();
+                }
+            };
+        }
+
+        function addCouponToHistory(businessId, name, value, points) {
+            const historyList = document.querySelector('.exchange-history .donations-list');
+            if (!historyList) return;
+            
+            const today = new Date().toLocaleDateString('tr-TR');
+            
+            // Get business icon
+            const business = businesses.find(b => b.id === businessId);
+            const icon = business ? business.icon : '🎫';
+
+            const newCoupon = document.createElement('div');
+            newCoupon.className = 'donation-item';
+            newCoupon.innerHTML = `
+                <div class="donation-image">
+                    <div style="background: linear-gradient(135deg, #10b981, #059669); width: 80px; height: 80px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">${icon}</div>
+                </div>
+                <div class="donation-info">
+                    <h3>${name}</h3>
+                    <p>${value} • ${points} puan</p>
+                    <span class="donation-date">${today}</span>
+                </div>
+                <div class="donation-status pending">Aktif</div>
+            `;
+            
+            historyList.insertBefore(newCoupon, historyList.firstChild);
+        }
+
+        // CSS animasyonu ekle
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'999c6c8de5000d26',t:'MTc2MjM0NjQ3Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReHome Gençlik Merkezi</title>
+    <link rel="stylesheet" href="style.css">
+    
+    
+</head>
+<body>
+     <nav class="navbar">
+        <div class="navbar-container">
+         <img src="foto.png" alt="logo" class="logo" height="50px"onerror="this.src=''; this.alt='Logo yüklenemedi'; this.style.display='none';">
+
+    
+      
+               <ul class="nav-menu" id="nav-menu">
+                <li><a href="1iindex.html" class="nav-link active" onclick="showMainSection('Ana Sayfa')">Ana Sayfa</a></li>
+                <li><a href="2Genclik.html" class="nav-link" onclick="showMainSection('Gençlik Merkezleri')">Gençlik Merkezleri</a></li>
+                <li><a href="3Bagis.html" class="nav-link" onclick="showMainSection('Bağış Yap')">Bağış Yap</a></li>
+                <li><a href="4esyaara.html" class="nav-link" onclick="showMainSection('Eşya ara ')">Eşya ara </a></li>
+                <li><a href="5profilim.html" class="nav-link" onclick="showMainSection('Profilim')">Profilim</a></li>
+             </ul>
+
+  
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+
+         <div id="Ana Sayfa" class="main-section hidden">Ana Sayfa Content</div>
+        <div id="Gençlik Merkezleri" class="main-section hidden">Gençlik Merkezleri Content</div>
+        <div id="Bağış Yap" class="main-section hidden">Bağış Yap Content</div>
+        <div id="Eşya ara" class="main-section hidden">Eşya ara Content</div>
+        <div id="Profilim" class="main-section hidden">Profilim Content</div>
+  
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1>Paylaş, İyilik Yap, Kazan</h1>
+            <p class="subtitle">ReHome Gençlik Merkeziyle kullanılmayan eşyalarını bağışlayarak iyilik yapıp puan kazanabilirsin!</p>
+        </div>
+
+        <!-- Motivation Box -->
+        <div class="motivation-box">
+            <h2>Artık her bağışın bir fark yaratıyor!</h2>
+            <p class="motivation-text">
+                Kullanmadığın eşyaları bağışlayarak hem ihtiyacı olanlara umut ol, hem de CO₂ salımını azaltarak dünyamızı koru.<br>
+                Üstelik bağışladıkça puan kazan, çevre dostu katkılarınla doğayı koru 🌿💚
+            </p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎁</div>
+                <h3>Kolay Bağış</h3>
+                <p>Kullanmadığın eşyaları kolayca bağışla, ihtiyaç sahiplerine ulaştır</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>Puan Kazan</h3>
+                <p>Her bağışın için puan kazan!</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3>Çevreyi Koru</h3>
+                <p>CO₂ salımını azaltarak gezegene katkıda bulun</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">❤️</div>
+                <h3>İyilik Yap</h3>
+                <p>İhtiyaç sahiplerine umut ol, topluma değer kat</p>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats1-section">
+            <h2 style="color: rgb(0, 0, 0); margin-bottom: 1rem;">Şimdiye Kadar Birlikte Başardıklarımız</h2>
+            <div class="stats1-grid">
+                <div class="stat1-item">
+                    <div class="stat1-number">2,847</div>
+                    <div class="stat1-label">Bağışlanan Eşya</div>
+                </div>
+                <div class="stat1-item">
+                    <div class="stat1-number">1,523</div>
+                    <div class="stat1-label">Mutlu Aile</div>
+                </div>
+                <div class="stat1-item">
+                    <div class="stat1-number">3.2 Ton</div>
+                    <div class="stat1-label">Azaltılan CO₂</div>
+                </div>
+                <div class="stat1-item">
+                    <div class="stat1-number">892</div>
+                    <div class="stat1-label">Aktif Üye</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auth Section -->
+        <div class="auth-section">
+            <button class="auth-button" onclick="toggleForm('register')">Kayıt Ol</button>
+            <button class="auth-button" onclick="toggleForm('login')">Giriş Yap</button>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Hemen Başla!</h2>
+            <p>Sen de bu anlamlı yolculuğa katıl, bağışla, kazan ve fark yarat!</p>
+            <button class="cta-button" onclick="toggleForm('register')">Ücretsiz Hesap Oluştur</button>
+        </div>
+
+        <!-- Form Container -->
+        <div class="forms-wrapper">
+            <!-- Kayıt Ol Formu -->
+            <div id="register-container" class="auth-container">
+                <div class="auth-form">
+                    <div class="success-message" id="register-success">
+                        Kayıt işleminiz başarıyla tamamlandı! Giriş yapabilirsiniz.
+                    </div>
+                    <h2>Hesap Oluştur</h2>
+                    <form onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="fullname">Ad Soyad</label>
+                            <input type="text" id="fullname" name="fullname" required placeholder="Adınız ve soyadınız">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon Numarası</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="0555 123 45 67">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" required placeholder="ornek@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Adres</label>
+                            <textarea id="address" name="address" required placeholder="Tam adresinizi yazın" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Şifre</label>
+                            <input type="password" id="register-password" name="password" required placeholder="En az 6 karakter">
+                        </div>
+                        <button type="submit" class="auth-btn">Kayıt Ol</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Giriş Yap Formu -->
+            <div id="login-container" class="auth-container">
+                <div class="auth-form">
+                    <div class="success-message" id="login-success">
+                        Giriş işleminiz başarıyla tamamlandı!
+                    </div>
+                    <h2>Giriş Yap</h2>
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="login-email">E-mail</label>
+                            <input type="email" id="login-email" name="email" required placeholder="ornek@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Şifre</label>
+                            <input type="password" id="login-password" name="password" required placeholder="Şifrenizi girin">
+                        </div>
+                        <div class="form-options">
+                            <a href="#" class="forgot-password">Şifremi Unuttum</a>
+                        </div>
+                        <button type="submit" class="auth-btn">Giriş Yap</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+   
+    <script>
+        function toggleForm(formType) {
+            const registerContainer = document.getElementById('register-container');
+            const loginContainer = document.getElementById('login-container');
+            const formsWrapper = document.querySelector('.forms-wrapper');
+            
+            if (formType === 'register') {
+                if (registerContainer.classList.contains('active')) {
+                    registerContainer.classList.remove('active');
+                } else {
+                    loginContainer.classList.remove('active');
+                    setTimeout(() => {
+                        registerContainer.classList.add('active');
+                        // Forma kaydır
+                        formsWrapper.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                    }, 100);
+                }
+            } else if (formType === 'login') {
+                if (loginContainer.classList.contains('active')) {
+                    loginContainer.classList.remove('active');
+                } else {
+                    registerContainer.classList.remove('active');
+                    setTimeout(() => {
+                        loginContainer.classList.add('active');
+                        // Forma kaydır
+                        formsWrapper.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                    }, 100);
+                }
+            }
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const userData = {
+                fullname: formData.get('fullname'),
+                phone: formData.get('phone'),
+                email: formData.get('email'),
+                address: formData.get('address'),
+                password: formData.get('password')
+            };
+           
+            if (userData.password.length < 6) {
+                const passwordField = document.getElementById('register-password');
+                passwordField.style.borderColor = '#dc3545';
+                passwordField.placeholder = 'Şifre en az 6 karakter olmalıdır!';
+                setTimeout(() => {
+                    passwordField.style.borderColor = '#e1e1e1';
+                    passwordField.placeholder = 'En az 6 karakter';
+                }, 3000);
+                return;
+            }
+
+            document.getElementById('register-success').style.display = 'block';
+            event.target.reset();
+            
+            setTimeout(() => {
+                toggleForm('login');
+                document.getElementById('register-success').style.display = 'none';
+            }, 3000);
+            
+            console.log('Kayıt verisi:', userData);
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const loginData = {
+                email: formData.get('email'),
+                password: formData.get('password')
+            };
+            
+            document.getElementById('login-success').style.display = 'block';
+            event.target.reset();
+            
+            setTimeout(() => {
+                document.getElementById('login-success').style.display = 'none';
+            }, 2000);
+            
+            console.log('Giriş verisi:', loginData);
+        }
+
+        // Animasyonlu sayaç efekti
+        function animateNumbers() {
+            const numbers = document.querySelectorAll('.stat-number');
+            numbers.forEach(number => {
+                const target = parseInt(number.textContent.replace(/[^\d]/g, ''));
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    if (number.textContent.includes('Ton')) {
+                        number.textContent = current.toFixed(1) + ' Ton';
+                    } else {
+                        number.textContent = Math.floor(current).toLocaleString();
+                    }
+                }, 40);
+            });
+        }
+
+        // Sayfa yüklendiğinde animasyonu başlat
+        window.addEventListener('load', () => {
+            setTimeout(animateNumbers, 1000);
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9963e588e51d7fc6',t:'MTc2MTc1MzczOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

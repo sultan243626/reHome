@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eşya Ara - ReHome</title>
+     <link rel="stylesheet" href="style.css">
+    <script>
+    function showMainSection(section) {
+            const sections = document.querySelectorAll('.main-section');
+            sections.forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(section).classList.remove('hidden');
+            }
+</script>
+</head>
+<body>
+     <nav class="navbar">
+        <div class="navbar-container">
+         <img src="foto.png" alt="logo" class="logo" height="50px"onerror="this.src=''; this.alt='Logo yüklenemedi'; this.style.display='none';">
+
+    
+      
+               <ul class="nav-menu" id="nav-menu">
+                <li><a href="1iindex.html" class="nav-link" onclick="showMainSection('Ana Sayfa')">Ana Sayfa</a></li>
+                <li><a href="2Genclik.html" class="nav-link" onclick="showMainSection('Gençlik Merkezleri')">Gençlik Merkezleri</a></li>
+                <li><a href="3Bagis.html" class="nav-link" onclick="showMainSection('Bağış Yap')">Bağış Yap</a></li>
+                <li><a href="4esyaara.html" class="nav-link active" onclick="showMainSection('Eşya ara ')">Eşya ara </a></li>
+                <li><a href="5profilim.html" class="nav-link" onclick="showMainSection('Profilim')">Profilim</a></li>
+             </ul>
+
+  
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+ <div id="Ana Sayfa" class="main-section hidden">Ana Sayfa Content</div>
+        <div id="Gençlik Merkezleri" class="main-section hidden">Gençlik Merkezleri Content</div>
+        <div id="Bağış Yap" class="main-section hidden">Bağış Yap Content</div>
+        <div id="Eşya ara" class="main-section hidden">Eşya ara Content</div>
+        <div id="Profilim" class="main-section hidden">Profilim Content</div>
+  
+    <main class="main-content">
+        <div class="headeresya">
+            <h1>Bağışlanmış Eşyalar</h1>
+            <p>Gençlik merkezlerindeki mevcut bağışları keşfedin</p>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label class="filter-label">Şehir Seç</label>
+                    <select id="city-select" class="filter-select" onchange="updateCenters(); filterProducts()">
+                        <option value="">Şehir Seçin</option>
+                        <option value="konya">Konya</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Gençlik Merkezi Seç</label>
+                    <select id="center-select" class="filter-select" onchange="filterProducts()">
+                        <option value="">Merkez Seçin</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Ürün Kategorisi</label>
+                    <select id="category-select" class="filter-select" onchange="updateItemTypes(); filterProducts()">
+                        <option value="">Kategori Seçin</option>
+                        <option value="beyaz-esyalar">Beyaz Eşyalar</option>
+                        <option value="mobilya">Mobilya</option>
+                        <option value="egitim-araclari">Eğitim Araçları</option>
+                        <option value="mutfak-gerecleri">Mutfak Gereçleri</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Eşya Türü Seç</label>
+                    <select id="item-type-select" class="filter-select" onchange="filterProducts()">
+                        <option value="">Eşya Türü Seçin</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="products-section">
+            <h2 style="color: #8B4B8C; margin-bottom: 1rem;">Mevcut Bağışlar</h2>
+            <div id="products-container" class="products-grid">
+                <!-- Ürünler buraya dinamik olarak eklenecek -->
+            </div>
+            <div id="no-products" class="no-products" style="display: none;">
+                Seçilen kriterlere uygun bağış bulunamadı.
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Şehir ve gençlik merkezleri eşleştirmesi
+        const cityCenters = {
+            'konya': [
+                { value: 'selcuklu', name: 'Selçuklu Gençlik Merkezi' },
+                { value: 'meram', name: 'Meram Gençlik Merkezi' },
+                { value: 'karatay', name: 'Karatay Gençlik Merkezi' },
+                { value: 'bosna', name: 'Bosna Hersek Gençlik Merkezi' },
+                { value: 'aksehir', name: 'Akşehir Gençlik Merkezi' },
+                { value: 'beysehir', name: 'Beyşehir Gençlik Merkezi' },
+                { value: 'eregli', name: 'Ereğli Gençlik Merkezi' },
+                { value: 'karapinar', name: 'Karapınar Gençlik Merkezi' },
+                { value: 'ilgin', name: 'Ilgın Gençlik Merkezi' },
+                { value: 'seydisehir', name: 'Seydişehir Gençlik Merkezi' },
+                { value: 'cihanbeyli', name: 'Cihanbeyli Gençlik Merkezi' },
+                { value: 'kulu', name: 'Kulu Gençlik Merkezi' },
+                { value: 'yunak', name: 'Yunak Gençlik Merkezi' },
+                { value: 'hadim', name: 'Hadim Gençlik Merkezi' },
+                { value: 'bozkir', name: 'Bozkır Gençlik Merkezi' }
+            ]
+        };
+
+        // Kategori ve eşya türleri eşleştirmesi
+        const itemTypes = {
+            'beyaz-esyalar': ['Buzdolabı', 'Çamaşır Makinesi', 'Bulaşık Makinesi', 'Fırın', 'Mikrodalga'],
+            'mobilya': ['Kanepe', 'Masa', 'Sandalye', 'Dolap', 'Raf'],
+            'egitim-araclari': ['Kitap', 'Defter', 'Kalem', 'Hesap Makinesi', 'Sıra'],
+            'mutfak-gerecleri': ['Tencere', 'Tava', 'Tabak', 'Bardak', 'Çatal Bıçak']
+        };
+
+        // Gençlik merkezlerini güncelleme
+        function updateCenters() {
+            const citySelect = document.getElementById('city-select');
+            const centerSelect = document.getElementById('center-select');
+            const selectedCity = citySelect.value;
+
+            // Merkez seçimini temizle
+            centerSelect.innerHTML = '<option value="">Merkez Seçin</option>';
+
+            if (selectedCity && cityCenters[selectedCity]) {
+                cityCenters[selectedCity].forEach(center => {
+                    const option = document.createElement('option');
+                    option.value = center.value;
+                    option.textContent = center.name;
+                    centerSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Örnek ürün verisi
+        const products = [
+            {
+                id: 1,
+                user: 'ahmet12',
+                center: 'selcuklu',
+                category: 'mobilya',
+                itemType: 'Sandalye',
+                title: 'Ahşap Sandalye',
+                description: 'Az kullanıldı, bağışlamak istiyorum. Çok temiz durumda.',
+                image: 'sandalye.jpeg'
+            },
+            {
+                id: 2,
+                user: 'zeynep_34',
+                center: 'bosna',
+                category: 'beyaz-esyalar',
+                itemType: 'Buzdolabı',
+                title: 'Küçük Buzdolabı',
+                description: 'Öğrenci evinde kullanıldı, çalışır durumda. Temizlendi.',
+                image: 'buzdolabı.jpeg'
+            },
+            {
+                id: 3,
+                user: 'mehmet_67',
+                center: 'karatay',
+                category: 'egitim-araclari',
+                itemType: 'Kitap',
+                title: 'Matematik Kitapları',
+                description: 'Lise matematik kitapları seti. Hiç kullanılmadı, yeni gibi.',
+                image:'matkitap.jpeg'
+            },
+            {
+                id: 4,
+                user: 'ayse_23',
+                center: 'cihanbeyli',
+                category: 'mutfak-gerecleri',
+                itemType: 'Tencere',
+                title: 'Tencere Seti',
+                description: 'Çok az kullanıldı, neredeyse hiç kullanılmadı. Temiz.',
+                image:'tencereseti.jpeg'
+            },
+            {
+                id: 5,
+                user: 'fatma_45',
+                center: 'kulu',
+                category: 'mobilya',
+                itemType: 'Masa',
+                title: 'Çalışma Masası',
+                description: 'Evden çıkarken bağışlıyorum. Çok kullanışlı ve sağlam.',
+                image:'çalışmamasa.jpeg'
+            }
+        ];
+
+        // Eşya türlerini güncelleme
+        function updateItemTypes() {
+            const categorySelect = document.getElementById('category-select');
+            const itemTypeSelect = document.getElementById('item-type-select');
+            const selectedCategory = categorySelect.value;
+
+            // Eşya türü seçimini temizle
+            itemTypeSelect.innerHTML = '<option value="">Eşya Türü Seçin</option>';
+
+            if (selectedCategory && itemTypes[selectedCategory]) {
+                itemTypes[selectedCategory].forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type;
+                    option.textContent = type;
+                    itemTypeSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Ürünleri filtreleme
+        function filterProducts() {
+            const citySelect = document.getElementById('city-select').value;
+            const centerSelect = document.getElementById('center-select').value;
+            const categorySelect = document.getElementById('category-select').value;
+            const itemTypeSelect = document.getElementById('item-type-select').value;
+
+            let filteredProducts = products;
+
+            // Şehir filtresi
+            if (citySelect) {
+                if (citySelect === 'konya') {
+                    // Konya için merkez ID'lerini kontrol et
+                    const konyaCenters = ['selcuklu', 'meram', 'karatay', 'bosna', 'aksehir', 'beysehir', 'eregli', 'karapinar', 'ilgin', 'seydisehir', 'cihanbeyli', 'kulu', 'yunak', 'hadim', 'bozkir'];
+                    if (centerSelect && !konyaCenters.includes(centerSelect)) {
+                        filteredProducts = [];
+                    }
+                } else if (citySelect === 'duzce') {
+                    // Düzce için merkez ID'lerini kontrol et
+                    const duzceCenters = ['merkez', 'bahcesehir'];
+                    if (centerSelect && !duzceCenters.includes(centerSelect)) {
+                        filteredProducts = [];
+                    }
+                } else {
+                    filteredProducts = [];
+                }
+            }
+
+            // Gençlik merkezi filtresi
+            if (centerSelect) {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.center === centerSelect
+                );
+            }
+
+            // Kategori filtresi
+            if (categorySelect) {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.category === categorySelect
+                );
+            }
+
+            // Eşya türü filtresi
+            if (itemTypeSelect) {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.itemType === itemTypeSelect
+                );
+            }
+
+            displayProducts(filteredProducts);
+        }
+
+        // Ürünleri görüntüleme
+        function displayProducts(productsToShow) {
+            const container = document.getElementById('products-container');
+            const noProducts = document.getElementById('no-products');
+
+            if (productsToShow.length === 0) {
+                container.style.display = 'none';
+                noProducts.style.display = 'block';
+                return;
+            }
+
+            container.style.display = 'grid';
+            noProducts.style.display = 'none';
+
+            container.innerHTML = productsToShow.map(product => `
+                <div class="product-card">
+                    <div class="product-header">
+                        <span class="product-user">👤 ${product.user}</span>
+                        <span class="product-location">${getCenterName(product.center)}</span>
+                    </div>
+                    <img src="${product.image}" alt="${product.title}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">${product.title}</h3>
+                        <div class="product-category">
+                            <span class="category-tag">${getCategoryName(product.category)}</span>
+                            <span class="category-tag">${product.itemType}</span>
+                        </div>
+                        <p class="product-description">${product.description}</p>
+                    </div>
+                    <button class="contact-btn" onclick="contactUser('${product.user}', '${product.title}')">
+                        İletişime Geç
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Kategori adını çevirme
+        function getCategoryName(category) {
+            const categoryNames = {
+                'beyaz-esyalar': 'Beyaz Eşyalar',
+                'mobilya': 'Mobilya',
+                'egitim-araclari': 'Eğitim Araçları',
+                'mutfak-gerecleri': 'Mutfak Gereçleri'
+            };
+            return categoryNames[category] || category;
+        }
+
+        // Gençlik merkezi adını çevirme
+        function getCenterName(centerId) {
+            // Tüm şehirlerdeki merkezleri kontrol et
+            for (const city in cityCenters) {
+                const center = cityCenters[city].find(c => c.value === centerId);
+                if (center) {
+                    return center.name;
+                }
+            }
+            // Fallback
+            if (centerId === 'merkez') return 'Merkez GM';
+            if (centerId === 'bahcesehir') return 'Bahçeşehir GM';
+            return centerId;
+        }
+
+        // Kullanıcıyla iletişim
+        function contactUser(username, itemTitle) {
+            alert(`${username} kullanıcısıyla "${itemTitle}" için iletişime geçiliyor...`);
+            // Burada gerçek iletişim sistemi entegre edilebilir
+        }
+
+        // Sayfa yüklendiğinde tüm ürünleri göster
+        document.addEventListener('DOMContentLoaded', function() {
+            displayProducts(products);
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99a2847734790d26',t:'MTc2MjQxMDM2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
